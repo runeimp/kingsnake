@@ -1,5 +1,5 @@
-Kingsnake
-=========
+Kingsnake v0.1.0
+================
 
 King snakes eat other snakes. This kingsnake eats viper configs!
 
