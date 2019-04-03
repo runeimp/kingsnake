@@ -9,7 +9,7 @@ import (
 
 const (
 	pkgName    = "Kingsnake"
-	pkgVersion = "0.1.0"
+	pkgVersion = "0.2.0"
 )
 
 // Kingsnake eats vipers
@@ -25,6 +25,10 @@ type Kingsnake struct {
 
 // Eat allows kingsnake to consume vipers
 func (ks Kingsnake) Eat(key string, cfg *viper.Viper) {
+	// if err := cfg.ReadInConfig(); err == nil {
+	// 	log.Println("Kingsnake.Eat() | cfg file:", cfg.ConfigFileUsed())
+	// 	// log.Println()
+	// }
 	ks.configs[key] = cfg
 }
 
@@ -62,6 +66,48 @@ func (ks Kingsnake) Get(key string) interface{} {
 	for _, cfg := range ks.configs {
 		if cfg.IsSet(key) {
 			result = cfg.Get(key)
+			break
+		}
+	}
+
+	return result
+}
+
+// GetInt returns the value of a key as a system integer
+func (ks Kingsnake) GetInt(key string) int {
+	var result int
+
+	for _, cfg := range ks.configs {
+		if cfg.IsSet(key) {
+			result = cfg.GetInt(key)
+			break
+		}
+	}
+
+	return result
+}
+
+// GetString returns the value of a key as a string
+func (ks Kingsnake) GetString(key string) string {
+	var result = ""
+
+	for _, cfg := range ks.configs {
+		if cfg.IsSet(key) {
+			result = cfg.GetString(key)
+			break
+		}
+	}
+
+	return result
+}
+
+// IsSet returns true if the key is set in any config
+func (ks Kingsnake) IsSet(key string) bool {
+	var result = false
+
+	for _, cfg := range ks.configs {
+		if cfg.IsSet(key) {
+			result = true
 			break
 		}
 	}
