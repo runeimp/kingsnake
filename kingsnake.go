@@ -10,7 +10,7 @@ import (
 
 const (
 	pkgName    = "Kingsnake"
-	pkgVersion = "0.3.0"
+	pkgVersion = "0.3.1"
 )
 
 // Kingsnake eats vipers
@@ -63,7 +63,7 @@ func (ks *Kingsnake) Get(key string) interface{} {
 	for _, name := range ks.names {
 		cfg := ks.configs[name]
 		if cfg.IsSet(key) {
-			return cfg.GetString(key)
+			return cfg.Get(key)
 		}
 	}
 	return nil
